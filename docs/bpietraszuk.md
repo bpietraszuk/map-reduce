@@ -1,37 +1,60 @@
-```<head>
-  <script type='text/javascript' src='https://www.google.com/jsapi'></script>
-  <script type='text/javascript'>
-   google.load('visualization', '1', {'packages': ['geomap']});
-   google.setOnLoadCallback(drawMap);
+# Map reduce
+### *Bart³omiej Pietraszuk*
 
-    function drawMap() {
-      var data = google.visualization.arrayToDataTable([
-        ['City', 'Ilosc zauwazen UFO'],
-        ['Seattle', 440],
-        ['Phoenix', 377],
-        ['Los Angeles', 294],
-        ['San Diego', 274],
-        ['Las Vegas', 271],
-        ['Portland', 253],
-		['Chicago', 219],
-		['Tucson', 187],
-		['Miami', 161],
-		['Austin', 159]
-      ]);
+Obliczamy sumê zauwazen UFO dla danego miasta w USA
 
-      var options = {};
-      options['region'] = 'US';
-      options['colors'] = [0xFF8747, 0xFFB581, 0xc06000]; //orange colors
-      options['dataMode'] = 'markers';
+## Funkcja map
+```js
+map = function() {
+                emit(this.location, 1);
+};
+```
 
-      var container = document.getElementById('map_canvas');
-      var geomap = new google.visualization.GeoMap(container);
-      geomap.draw(data, options);
-    };
+## Funkcja reduce
+```js
+reduce = function(key, val) {
+                var count = 0;
+                for(i = 0; i < val.length; i++) {
+                        count += val[i];
+                }
+                return count;
+};
+```
 
-  </script>
-</head>
+## Map Reduce kolekcji
+```js
+db.ufo.mapReduce(
+        map,
+        reduce,
+        { out : "result" }
+);
+```
 
-<body>
-    <div id='map_canvas'></div>
-</body>```
+## Wyœwietlenie rezultatu
+```js
+db.result.find().sort({value: -1})
+```
+
+## Rezultat (10 pierwszych)
+
+```json
+{ "_id" : "Seattle, WA", "value" : 440 }
+{ "_id" : "Phoenix, AZ", "value" : 377 }
+{ "_id" : "Los Angeles, CA", "value" : 294 }
+{ "_id" : "San Diego, CA", "value" : 274 }
+{ "_id" : "Las Vegas, NU", "value" : 271 }
+{ "_id" : "Portland, OR", "value" : 253 }
+{ "_id" : "Chicago, IL", "value" : 219 }
+{ "_id" : "Tucson, AZ", "value" : 187 }
+{ "_id" : "Miami, FL", "value" : 161 }
+{ "_id" : "Austin, TX", "value" : 159 }
+```
+
+## Wykres
+![](../../images/bpietraszuk/ufo.png)
+
+## Skrypt
+* [Skrypt](../../scripts/bpietraszuk/mapReduce.js)
+
+## Strona HTML z wykresem
+* [Skrypt](../../scripts/bpietraszuk/sample.js)
