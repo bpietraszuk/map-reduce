@@ -57,4 +57,4 @@ db.result.find().sort({value: -1})
 * [Skrypt](../scripts/bpietraszuk/mapReduce.js)
 
 ## Strona HTML z wykresem
-* [Skrypt](../scripts/bpietraszuk/sample.js)
+* [Skrypt](../scripts/bpietraszuk/sample.html)
