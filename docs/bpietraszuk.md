@@ -1,7 +1,7 @@
 # Map reduce
-### *Bart≥omiej Pietraszuk*
+### *Bart≈Çomiej Pietraszuk*
 
-Obliczamy sumÍ zauwazen UFO dla danego miasta w USA
+Obliczamy sumƒô zauwa≈ºe≈Ñ UFO dla danego miasta w USA
 
 ## Funkcja map
 ```js
@@ -30,7 +30,7 @@ db.ufo.mapReduce(
 );
 ```
 
-## Wyúwietlenie rezultatu
+## Wy≈õwietlenie rezultatu
 ```js
 db.result.find().sort({value: -1})
 ```
@@ -51,10 +51,10 @@ db.result.find().sort({value: -1})
 ```
 
 ## Wykres
-![](../../images/bpietraszuk/ufo.png)
+![](../images/bpietraszuk/ufo.png)
 
 ## Skrypt
-* [Skrypt](../../scripts/bpietraszuk/mapReduce.js)
+* [Skrypt](../scripts/bpietraszuk/mapReduce.js)
 
 ## Strona HTML z wykresem
-* [Skrypt](../../scripts/bpietraszuk/sample.js)
+* [Skrypt](../scripts/bpietraszuk/sample.js)
